@@ -1,4 +1,4 @@
-class Vehicle {
+abstract class Vehicle {
   int? _cylinderCapacity;
   int? _maxSpeed;
   String? _engineType;
@@ -13,7 +13,6 @@ class Vehicle {
       this._cylinderCapacity = 0;
   }
 
-  // شلنا الـ ! وحطينا ?? 0
   int get cylinderCapacity => _cylinderCapacity ?? 0;
 
   set maxSpeed(int maxSpeed) {

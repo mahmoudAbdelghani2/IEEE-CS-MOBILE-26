@@ -8,6 +8,9 @@ class DragPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
+      initialChildSize: 0.33,
+      maxChildSize: 0.9,
+      minChildSize: 0.33,
       builder: (context, controller) => Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -34,7 +37,7 @@ class DragPage extends StatelessWidget {
                 ],
               ),
 
-              SizedBox(height: 10),
+              SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [

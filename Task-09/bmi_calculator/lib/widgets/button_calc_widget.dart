@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:bmi_calculator/Utils/bmi_helper.dart';
 import 'package:flutter/material.dart';
 
 class CalcBIMButton extends StatefulWidget {
@@ -22,42 +23,12 @@ class CalcBIMButton extends StatefulWidget {
 }
 
 class _CalcBIMButtonState extends State<CalcBIMButton> {
-  Map<String, dynamic> getBMIDetails(double bmi) {
-    if (bmi < 18.5) {
-      return {"label": "Underweight", "color": Colors.lightBlue, "align": -0.8};
-    } else if (bmi < 25) {
-      return {
-        "label": "Normal",
-        "color": const Color(0xFF65B741),
-        "align": -0.2,
-      };
-    } else if (bmi < 30) {
-      return {
-        "label": "Overweight",
-        "color": Colors.yellow.shade700,
-        "align": 0.4,
-      };
-    } else {
-      return {"label": "Obese", "color": Colors.red, "align": 0.9};
-    }
-  }
-
-  String getHealthyWeightRange(int height) {
-    double heightInMeters = height / 100;
-    double minWeight = 18.5 * (heightInMeters * heightInMeters);
-    double maxWeight = 24.9 * (heightInMeters * heightInMeters);
-
-    return "${minWeight.toStringAsFixed(1)} kg - ${maxWeight.toStringAsFixed(1)} kg";
-  }
-
-  double calculateBMIRaw() {
-    double heightInMeters = widget.height / 100;
-    return widget.weight / (heightInMeters * heightInMeters);
-  }
-
   void showAlertDialog(BuildContext context) {
-    double bmiValue = calculateBMIRaw();
-    var details = getBMIDetails(bmiValue);
+    double bmiValue = BMIHelper.calculateBMIRaw(
+      weight: widget.weight,
+      height: widget.height,
+    );
+    var details = BMIHelper.getBMIDetails(bmiValue);
 
     showDialog(
       context: context,
@@ -185,7 +156,7 @@ class _CalcBIMButtonState extends State<CalcBIMButton> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    getHealthyWeightRange(widget.height),
+                    BMIHelper.getHealthyWeightRange(widget.height),
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

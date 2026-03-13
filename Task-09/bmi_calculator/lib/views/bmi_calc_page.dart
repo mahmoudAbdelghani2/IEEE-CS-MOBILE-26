@@ -29,56 +29,65 @@ class _BMIPageState extends State<BMIPage> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Center(
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 20),
-              Text(
-                "Please Modify the values",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+          child: SingleChildScrollView(
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 20),
+                Text(
+                  "Please Modify the values",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  WightAgeContainer(
-                    txt: 'Weight (kg)',
-                    val: weight,
-                    onIncrement: () => setState(() => weight++),
-                    onDecrement: () =>
-                        setState(() => weight > 0 ? weight-- : weight),
-                  ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    WightAgeContainer(
+                      txt: 'Weight (kg)',
+                      val: weight,
+                      onIncrement: () => setState(() => weight++),
+                      onDecrement: () =>
+                          setState(() => weight > 0 ? weight-- : weight),
 
-                  WightAgeContainer(
-                    txt: 'Age',
-                    val: age,
-                    onIncrement: () => setState(() => age++),
-                    onDecrement: () => setState(() => age > 0 ? age-- : age),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30),
-              HeightWidget(
-                height: height,
-                onChanged: (val) {
-                  setState(() {
-                    height = val;
-                  });
-                },
-              ),
-              SizedBox(height: 70),
-              CalcBIMButton(
-                weight: weight,
-                height: height,
-                age: age,
-                gender: widget.gender,
-              ),
-            ],
+                      onChanged: (val) => setState(() {
+                        weight = val;
+                      }),
+                    ),
+
+                    WightAgeContainer(
+                      txt: 'Age',
+                      val: age,
+                      onIncrement: () => setState(() => age++),
+                      onDecrement: () => setState(() => age > 0 ? age-- : age),
+                      onChanged: (val) => setState(() {
+                        age = val;
+                      }),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30),
+                HeightWidget(
+                  height: height,
+                  onChanged: (val) {
+                    setState(() {
+                      height = val;
+                    });
+                  },
+                ),
+                SizedBox(height: 70),
+                CalcBIMButton(
+                  weight: weight,
+                  height: height,
+                  age: age,
+                  gender: widget.gender,
+                ),
+              ],
+            ),
           ),
         ),
       ),

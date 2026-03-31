@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 class TasksScreen extends StatefulWidget {
-  const TasksScreen({super.key});
-
+  const TasksScreen({super.key, required this.tasks});
+  final List<Map> tasks;
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }
@@ -31,7 +31,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 title: Row(
                   children: [
                     Text(
-                      "Go to gym",
+                      widget.tasks[index]['title'],
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.white,
@@ -56,14 +56,14 @@ class _TasksScreenState extends State<TasksScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "5:50 PM",
+                        widget.tasks[index]['time'],
                         style: TextStyle(
                           fontSize: 17,
                           color: Colors.white.withOpacity(0.5),
                         ),
                       ),
                       Text(
-                        "jul 24,2024",
+                        widget.tasks[index]['date'],
                         style: TextStyle(
                           fontSize: 17,
                           color: Colors.white.withOpacity(0.5),
@@ -74,7 +74,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 ),
               ),
               separatorBuilder: (context, index) => Divider(),
-              itemCount: 5,
+              itemCount: widget.tasks.length,
             ),
           ),
         ],

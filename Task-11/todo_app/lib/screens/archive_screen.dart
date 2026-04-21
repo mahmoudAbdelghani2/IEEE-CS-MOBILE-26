@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/cubit/cubit.dart';
+import 'package:todo_app/cubit/states.dart';
+import 'package:todo_app/widgets/reuseable_widgets.dart';
 
-class ArchiveScreen extends StatefulWidget {
+class ArchiveScreen extends StatelessWidget {
   const ArchiveScreen({super.key});
 
   @override
-  State<ArchiveScreen> createState() => _ArchiveScreenState();
-}
-
-class _ArchiveScreenState extends State<ArchiveScreen> {
-  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(color: Colors.red, child: Text("Archive Screen")),
+    return BlocConsumer<AppCubit, AppStates>(
+      builder: (context, state) => buildListUi(
+        context,
+        tasks: AppCubit.get(context).archiveTasks,
+        type: 'archive',
+      ),
+      listener: (context, state) {},
     );
   }
 }

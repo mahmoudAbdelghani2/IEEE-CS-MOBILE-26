@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/cubit/cubit.dart';
+import 'package:todo_app/cubit/states.dart';
+import 'package:todo_app/widgets/reuseable_widgets.dart';
 
-class DoneScreen extends StatefulWidget {
+class DoneScreen extends StatelessWidget {
   const DoneScreen({super.key});
 
   @override
-  State<DoneScreen> createState() => _DoneScreenState();
-}
-
-class _DoneScreenState extends State<DoneScreen> {
-  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(color: Colors.red, child: Text("Done Screen")),
+    return BlocConsumer<AppCubit, AppStates>(
+      builder: (context, state) => buildListUi(
+        context,
+        tasks: AppCubit.get(context).doneTasks,
+        type: 'done',
+      ),
+      listener: (context, state) {},
     );
   }
 }

@@ -1,84 +1,22 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/cubit/cubit.dart';
+import 'package:todo_app/cubit/states.dart';
+import 'package:todo_app/widgets/reuseable_widgets.dart';
 
-class TasksScreen extends StatefulWidget {
-  const TasksScreen({super.key, required this.tasks});
-  final List<Map> tasks;
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
+class TaskScreen extends StatelessWidget {
+  const TaskScreen({super.key});
 
-class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.88,
-            height: MediaQuery.of(context).size.height * 0.788,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.grey,
-            ),
-            child: ListView.separated(
-              itemBuilder: (context, index) => ListTile(
-                leading: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.check_box, color: Colors.white),
-                ),
-                title: Row(
-                  children: [
-                    Text(
-                      widget.tasks[index]['title'],
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Spacer(),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.archive, color: Colors.white),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.delete, color: Colors.white),
-                    ),
-                  ],
-                ),
-                subtitle: Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.tasks[index]['time'],
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.white.withOpacity(0.5),
-                        ),
-                      ),
-                      Text(
-                        widget.tasks[index]['date'],
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.white.withOpacity(0.5),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              separatorBuilder: (context, index) => Divider(),
-              itemCount: widget.tasks.length,
-            ),
-          ),
-        ],
-      ),
+    return BlocBuilder<AppCubit, AppStates>(
+      builder: (context, state) {
+        return buildListUi(
+          context,
+          tasks: AppCubit.get(context).tasks,
+          type: 'home',
+        );
+      },
     );
   }
 }
